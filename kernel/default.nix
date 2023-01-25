@@ -26,6 +26,13 @@ let
 
         # Nvidia Tegra stuff.
         PCI_TEGRA y
+
+        # RT KERNEL
+        KVM n
+        EXPERT y
+        PREEMPT_RT y
+        RT_GROUP_SCHED n
+        PREEMPT_VOLUNTARY n
       '';
       target = "Image";
     };
@@ -35,7 +42,7 @@ let
     // lib.optionalAttrs (!stdenvNoCC.buildPlatform.isAarch64) { localSystem = stdenvNoCC.buildPlatform; crossSystem = hackedSystem; }
   );
 in hackedPkgs.buildLinux (args // rec {
-  version = "5.10.104";
+  version = "5.10.104-rt63";
   extraMeta.branch = "5.10";
 
   defconfig = "tegra_defconfig";
@@ -52,6 +59,8 @@ in hackedPkgs.buildLinux (args // rec {
     # Remove device tree overlays with some incorrect "remote-endpoint" nodes.
     # They are strings, but should be phandles. Otherwise, it fails to compile
     postPatch = ''
+      for i in rt-patches/*.patch; do patch -s -p1 < $i; done
+
       rm \
         nvidia/platform/t19x/galen/kernel-dts/tegra194-p2822-camera-imx185-overlay.dts \
         nvidia/platform/t19x/galen/kernel-dts/tegra194-p2822-camera-dual-imx274-overlay.dts \
