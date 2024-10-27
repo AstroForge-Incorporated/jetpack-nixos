@@ -1,0 +1,11 @@
+--- bsp-5.1.2/p2822-0000+p2888-0008.conf	1970-01-01 00:00:01.000000000 +0000
++++ bsp-5.1.2-new/p2822-0000+p2888-0008.conf	2024-10-27 04:14:11.636284891 +0000
+@@ -37,7 +37,7 @@
+ 
+ BPFDTB_FILE=tegra194-a02-bpmp-p2888-0008-b01-jaxi.dtb;
+ DTB_FILE=tegra194-p2888-0008-p2822-0000.dtb;
+-TBCDTB_FILE=tegra194-p2888-0008-p2822-0000.dtb;
++TBCDTB_FILE=tegra194-p2888-0008-p2822-0000-fc-uefi.dtb;
+ DRAMECCFILE="bootloader/dram-ecc-t194.bin";
+ BADPAGEFILE="bootloader/badpage.bin";
+ BADPAGENAME="bad-page";
